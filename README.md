@@ -1,3 +1,7 @@
+<h1 align="center">
+    <img src="https://github.com/ivanseibel/zip-files-with-react/blob/main/src/static/printscreen01.png" alt="printscreen01.png">
+</h1>
+
 # Zipping 2 PDF files with jszip library
 
 ## Table of Contents
