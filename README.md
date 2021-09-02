@@ -5,7 +5,8 @@
 - [About](#about)
 - [Getting Started](#getting_started)
 - [Usage](#usage)
-- [Contributing](../CONTRIBUTING.md)
+- [To Improve](#to_improve)
+
 
 ## About <a name = "about"></a>
 
@@ -17,9 +18,17 @@ Okay, the backend should return the zipped files, I agree. But what if you don't
 
 In that case you'll want to be able to do this from the front end.
 
+### Libraries
+
+I'm using:
+
+- Axios: to get remote files;
+- JSZip: to zip the files obtained;
+- file-saver: to save the zip file automatically.
+
 ## Getting Started <a name = "getting_started"></a>
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See [deployment](#deployment) for notes on how to deploy the project on a live system.
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
 ### Prerequisites
 
@@ -29,18 +38,20 @@ No prerequisites at all.
 
 Install all libraries.
 
-```
+```bash
 # npm install
 ```
 
-And repeat
-
-```
-until finished
-```
-
-End with an example of getting some data out of the system or using it for a little demo.
-
 ## Usage <a name = "usage"></a>
 
-Add notes about how to use the system.
+Just run it.
+
+```bash
+# npm start
+```
+
+## To Improve <a name = "to_improve"></a>
+
+- Get filename or create randomly
+- Create a container to add multiple URLs
+- Add a loading visual component (progress bar?)

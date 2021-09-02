@@ -26,13 +26,21 @@ function App() {
 
     try {
       setIsLoading(true);
-      const file1Response = await axios.get(file1, { responseType: 'blob' });
-      const file2Response = await axios.get(file2, { responseType: 'blob' });
 
+      // Get remote files
+      const file1Response = await axios.get(file1, {
+        responseType: 'blob' // <== IMPORTANT
+      });
+      const file2Response = await axios.get(file2, {
+        responseType: 'blob' // <== IMPORTANT
+      });
+
+      // Add (or update) a file to the zip file.
       const zip = new JSZip();
       zip.file('file1.pdf', file1Response.data, { binary: true });
       zip.file('file2.pdf', file2Response.data, { binary: true });
 
+      // Generates the complete zip file at the current folder level.
       zip.generateAsync({ type: 'blob' }).then(blob => {
         setIsLoading(false);
         saveAs(blob, 'file.zip');
