@@ -22,9 +22,9 @@ In that case you'll want to be able to do this from the front end.
 
 I'm using:
 
-- Axios: to get remote files;
-- JSZip: to zip the files obtained;
-- file-saver: to save the zip file automatically.
+- [Axios](https://github.com/axios/axios): to get remote files;
+- [JSZip](https://stuk.github.io/jszip/): to zip the files obtained;
+- [file-saver](https://github.com/eligrey/FileSaver.js): to save the zip file automatically.
 
 ## Getting Started <a name = "getting_started"></a>
 
