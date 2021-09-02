@@ -1,51 +1,73 @@
 import { useCallback, useState } from "react";
-
 import axios from 'axios';
 import { saveAs } from 'file-saver';
 import JSZip from "jszip";
-import { span } from "prelude-ls";
+
+import './App.css';
 
 function App() {
   const [isLoading, setIsLoading] = useState(false);
+  const [file1, setFile1] = useState('');
+  const [file2, setFile2] = useState('');
+
+  const handleChangeFile1 = useCallback((e) => {
+    setFile1(e.target.value);
+  }, [])
+
+  const handleChangeFile2 = useCallback((e) => {
+    setFile2(e.target.value);
+  }, [])
 
   const handleGetFile = useCallback(async () => {
+    if (file1.length === 0 || file2.length === 0) {
+      alert('You have to input two remote files');
+      return;
+    }
+
     try {
       setIsLoading(true);
-      const tagResponse = await axios.get('https://www.correios.com.br/enviar/encomendas/arquivo/nacional/guia-tecnico-embalagens-rpc_v1-1.pdf', {
-        responseType: 'blob'
-      });
-
-      const plpResponse = await axios.get('http://santoandre.educaon.com.br/wp-content/uploads/2020/10/Manual_do_Usuario_SIGEP.pdf', {
-        responseType: 'blob'
-      });
-
-      setIsLoading(false);
+      const file1Response = await axios.get(file1, { responseType: 'blob' });
+      const file2Response = await axios.get(file2, { responseType: 'blob' });
 
       const zip = new JSZip();
-      zip.file('etiqueta.pdf', tagResponse.data, { binary: true });
-      zip.file('plp.pdf', plpResponse.data, { binary: true });
+      zip.file('file1.pdf', file1Response.data, { binary: true });
+      zip.file('file2.pdf', file2Response.data, { binary: true });
 
       zip.generateAsync({ type: 'blob' }).then(blob => {
+        setIsLoading(false);
         saveAs(blob, 'file.zip');
       });
-
     } catch (error) {
       console.log(error.message);
     } finally {
       setIsLoading(false);
     }
 
-  }, []);
+  }, [file1, file2]);
 
   return (
-    <div styles="display: flex">
-      <button onClick={handleGetFile}>
-        Get file
-      </button>
+    <div className="main-container">
+      <h2>Zip Files With React.js</h2>
+      <div className="url-inputs-container" >
+        <label htmlFor="url1">
+          Remote PDF File 1
+          <input type="text" name="url1" id="url1" onChange={handleChangeFile1} />
+        </label>
+        <label htmlFor="url2">
+          Remote PDF File 1
+          <input type="text" name="url2" id="url2" onChange={handleChangeFile2} />
+        </label>
+      </div>
+
+      <div className="button-container">
+        <button onClick={handleGetFile} >
+          Get zip file
+        </button>
+      </div>
 
       <p>
         {isLoading && (
-          <span>We are getting your files...</span>
+          <span>Wait while we prepare the zip file for you...</span>
         )}
       </p>
     </div>
